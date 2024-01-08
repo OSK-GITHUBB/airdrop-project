@@ -21,8 +21,33 @@ const getWalletBalance = async() => {
     }
 }
 
+const airDropSol = async () => {
+    try {
+        const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+        const fromAirDropSignature = await connection.requestAirdrop(publicKey, 2 * LAMPORTS_PER_SOL);
+
+        // Create a TransactionConfirmationStrategy
+        const confirmationStrategy = {
+            strategy: "confirmed",
+            commitment: "confirmed"
+        }
+        
+        console.log('try worked');
+
+        // Use the new confirmTransaction method
+        await connection.confirmTransaction(fromAirDropSignature, confirmationStrategy);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+
 const main = async() => {
     await getWalletBalance()
+    await airDropSol()
+    await getWalletBalance()
+    console.log(publicKey)
+    console.log(secretKey)
 }
 
 main()
