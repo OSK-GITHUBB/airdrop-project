@@ -12,4 +12,6 @@ solana and spl-token cli commands on chain only.
 
 Section 4
 
+Solana calculator program
 
+Section 5
